@@ -1,14 +1,12 @@
-import React from 'react';
-
 
 const TextField = ({label, name,register}) => {
      return (
-      <div className=' p-2 '>
+       <div className="mb-2">
       <label>
         <span>{label}</span>
-        <input required type="text" placeholder={name} {...register(name)}   className='block border-2 pt-2 mt-1 rounded' />
       </label>
-    </div>
+        <input required type="text" placeholder={name} {...register(name)}   className='block border-2 rounded' />
+      </div>
      )
 }
 

@@ -25,6 +25,7 @@ function App() {
 
   const [isAgeVerified , setisAgeVerified] = useState(false);
 
+  const [order, setOrder] = useState(null);
   useEffect(() => {
     fetchProducts()
     fetchCart()
@@ -55,6 +56,18 @@ function App() {
     const cart = await  commerce.cart.remove(item_id);
     setCart(cart)
   }
+  const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+    try {
+      
+      const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+      console.log(incomingOrder);
+      setOrder(incomingOrder);
+ 
+      //refreshCart();
+    } catch (error) {
+       console.log(error);
+    }
+  };
 
   const openCart = () => {
       setIsCartOpen(!isCartOpen);
@@ -93,7 +106,7 @@ function App() {
      return (
        <div>
          <HealthWarning/>
-         <Checkout openCart = {openCart} cart = {cart}/>
+         <Checkout onCaptureCheckout = {handleCaptureCheckout} openCart = {openCart} cart = {cart}/>
        </div>
      )
    }
